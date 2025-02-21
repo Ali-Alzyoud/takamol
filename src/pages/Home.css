@@ -1,0 +1,40 @@
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+}
+
+.button-container {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+}
+
+.get-started-button {
+  --background: #ffffff;
+  --color: #000000;
+  --border-radius: 25px;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  font-weight: 500;
+}
+
+ion-toolbar {
+  --background: transparent;
+}
+/* Add these styles to your existing CSS */
+[dir="rtl"] .logo-container {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] ion-buttons {
+  direction: ltr;
+}

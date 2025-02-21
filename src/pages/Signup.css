@@ -1,0 +1,76 @@
+.signup-container {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.welcome-text {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.description-text {
+  color: var(--ion-color-medium);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.signup-method-selector {
+  margin-bottom: 24px;
+}
+
+ion-segment {
+  --background: #1c1c1c;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+ion-segment-button {
+  --indicator-color: #2c2c2c;
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-light);
+  min-height: 60px;
+}
+
+.segment-label {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.custom-input {
+  --background: #1c1c1c;
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin-bottom: 24px;
+}
+
+.signup-button {
+  --background: #1c1c1c;
+  --color: #ffffff;
+  --border-radius: 25px;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  margin-top: auto;
+}
+
+[dir="rtl"] .signup-button ion-icon {
+  transform: scaleX(-1);
+}
+
+.qr-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c1c1c;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}

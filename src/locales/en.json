@@ -1,0 +1,22 @@
+{
+  "common": {
+    "getStarted": "Get Started",
+    "language": "العربية"
+  },
+  "auth": {
+    "loginTitle": "Log in/create account",
+    "loginSubtitle": "Sign in to Takamol",
+    "username": "Username",
+    "password": "Password",
+    "signIn": "Sign In",
+    "newToTakamol": "New to Takamol?",
+    "signUpWithPasskey": "Sign Up With Passkey",
+    "signupTitle": "Sign up with Passkey",
+    "welcomeMessage": "Welcome to Takamol!",
+    "passkeyDescription": "Enter the passkey provided to you by one of our moderators. Your passkey is private and should not be shared. Alternatively, you can also scan the QR Code.",
+    "enterPasskey": "Enter Passkey",
+    "scanQRCode": "Scan QR Code",
+    "passkey": "Passkey",
+    "signUp": "Sign Up"
+  }
+}

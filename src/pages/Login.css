@@ -1,0 +1,65 @@
+.login-container {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.subtitle {
+  color: var(--ion-color-medium);
+  margin-bottom: 32px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.custom-input {
+  --background: #1c1c1c;
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin-bottom: 16px;
+}
+
+.sign-in-button {
+  --background: #ffffff;
+  --color: #000000;
+  --border-radius: 25px;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  margin-top: 24px;
+  font-weight: 500;
+}
+
+.signup-section {
+  margin-top: auto;
+  padding-bottom: 32px;
+}
+
+.new-user-text {
+  text-align: center;
+  color: var(--ion-color-medium);
+  margin-bottom: 16px;
+}
+
+.passkey-button {
+  --border-radius: 25px;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  --border-color: #ffffff;
+  --color: #ffffff;
+}
+
+[dir="rtl"] .sign-in-button ion-icon,
+[dir="rtl"] .passkey-button ion-icon {
+  transform: scaleX(-1);
+}
