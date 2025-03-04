@@ -29,14 +29,14 @@ const Signup: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <IonToolbar color="dark">
+        <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/login" color="light" />
+            <IonBackButton defaultHref="/login" />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding" color="dark">
+      <IonContent className="ion-padding">
         <div className="signup-container">
           <h1>{t('auth.signupTitle')}</h1>
           <p className="welcome-text">{t('auth.welcomeMessage')}</p>

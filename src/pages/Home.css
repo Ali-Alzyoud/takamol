@@ -30,11 +30,19 @@
 ion-toolbar {
   --background: transparent;
 }
-/* Add these styles to your existing CSS */
-[dir="rtl"] .logo-container {
-  transform: scaleX(-1);
+ion-toolbar ion-button.button-round {
+  --border-radius: 68px;
+  --border-width: 1px;
+  --padding-top: 13px;
+  --padding-bottom: 13px;
+  --padding-end: 20px;
+  --padding-start: 20px;
 }
-
-[dir="rtl"] ion-buttons {
+[dir="rtl"] ion-toolbar ion-buttons {
   direction: ltr;
+}
+[dir="ltr"] ion-toolbar ion-buttons {
+  ion-button {
+    --ion-font-family: "Almarai", sans-serif;
+  }
 }

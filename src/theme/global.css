@@ -1,0 +1,36 @@
+html {
+  --ion-dynamic-font: var(--ion-default-dynamic-font);
+  --ion-font-family: "Merriweather", serif;
+}
+
+/* font for ltr pages */
+html[dir="rtl"] {
+  --ion-font-family: "Almarai", sans-serif;
+}
+
+ion-segment-button {
+  text-transform: none;
+}
+
+/* Global form styles */
+.custom-input {
+  margin-bottom: 16px;
+}
+
+/* Primary button style */
+.primary-button {
+  --background: #ffffff;
+  --color: #000000;
+}
+
+/* Outline button style */
+.outline-button {
+  --border-color: rgba(255, 255, 255, 0.6);
+  --border-width: 1px;
+  --color: #ffffff;
+}
+
+/* Text styles */
+.subtitle-text {
+  color: rgba(255, 255, 255, 0.6);
+}

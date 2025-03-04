@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     // Add your login logic here
   };
-  
+
   const handleSignupClick = () => {
     history.push('/signup');
   };
@@ -32,14 +32,14 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <IonToolbar color="dark">
+        <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" color="light" />
+            <IonBackButton defaultHref="/" />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding" color="dark">
+      <IonContent className="ion-padding">
         <div className="login-container">
           <h1>{t('auth.loginTitle')}</h1>
           <p className="subtitle">{t('auth.loginSubtitle')}</p>
@@ -54,14 +54,14 @@ const Login: React.FC = () => {
 
             <IonInput
               label={t('auth.password')}
-              labelPlacement="floating"
+              labelPlacement="stacked"
               type="password"
               fill="solid"
               className="custom-input"
             />
 
-            <IonButton 
-              expand="block" 
+            <IonButton
+              expand="block"
               className="sign-in-button"
               type="submit"
             >
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
 
           <div className="signup-section">
             <p className="new-user-text">{t('auth.newToTakamol')}</p>
-            <IonButton 
+            <IonButton
               expand="block"
               fill="outline"
               className="passkey-button"

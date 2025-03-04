@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
-  
+
   // Add this useEffect to set initial direction
   useEffect(() => {
     document.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
@@ -35,25 +35,25 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border">
-        <IonToolbar color="dark">
+      <IonHeader className="ion-no-border ion-padding">
+        <IonToolbar>
           <IonButtons slot="end">
-            <IonButton fill="clear" color="light" onClick={toggleLanguage}>
+            <IonButton className='button-round' fill="outline" onClick={toggleLanguage} >
               <IonIcon slot="start" icon={globeOutline} />
               {t('common.language')}
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      
-      <IonContent fullscreen className="ion-padding" color="dark">
+
+      <IonContent fullscreen className="ion-padding">
         <div className="logo-container">
           <img src="/assets/logo.svg" alt="Takamol Logo" className="logo" />
         </div>
-        
+
         <div className="button-container">
-          <IonButton 
-            expand="block" 
+          <IonButton
+            expand="block"
             className="get-started-button"
             shape="round"
             size="large"
