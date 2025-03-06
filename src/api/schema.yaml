@@ -1,0 +1,960 @@
+openapi: 3.0.3
+info:
+  title: Takamol API
+  version: 1.0.0
+  description: Your project description
+paths:
+  /api/community/:
+    get:
+      operationId: community_list
+      tags:
+        - community
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Topic"
+          description: ""
+    post:
+      operationId: community_create
+      tags:
+        - community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Topic"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Topic"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Topic"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Topic"
+          description: ""
+  /api/community/{id}/:
+    get:
+      operationId: community_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - community
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Topic"
+          description: ""
+    put:
+      operationId: community_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Topic"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Topic"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Topic"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Topic"
+          description: ""
+    patch:
+      operationId: community_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchedTopic"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/PatchedTopic"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PatchedTopic"
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Topic"
+          description: ""
+    delete:
+      operationId: community_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - community
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "204":
+          description: No response body
+  /api/community/comments/:
+    get:
+      operationId: community_comments_list
+      description: |-
+        List or create a comment for a topic.
+        Use query params or separate endpoints for clarity (this is just for demonstration).
+      tags:
+        - community
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+          description: ""
+    post:
+      operationId: community_comments_create
+      description: |-
+        List or create a comment for a topic.
+        Use query params or separate endpoints for clarity (this is just for demonstration).
+      tags:
+        - community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Comment"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Comment"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+          description: ""
+  /api/community/comments/reply/:
+    post:
+      operationId: community_comments_reply_create
+      description: Create a reply to an existing comment.
+      tags:
+        - community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Comment"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Comment"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+          description: ""
+  /api/community/vote/:
+    post:
+      operationId: community_vote_create
+      description: Allows a user to cast or update a vote (+1 or -1) on a topic.
+      tags:
+        - community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vote"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Vote"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Vote"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vote"
+          description: ""
+  /api/polls/:
+    get:
+      operationId: polls_list
+      tags:
+        - polls
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Poll"
+          description: ""
+    post:
+      operationId: polls_create
+      tags:
+        - polls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Poll"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Poll"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Poll"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Poll"
+          description: ""
+  /api/polls/{id}/:
+    get:
+      operationId: polls_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - polls
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Poll"
+          description: ""
+    put:
+      operationId: polls_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - polls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Poll"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Poll"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Poll"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Poll"
+          description: ""
+    patch:
+      operationId: polls_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - polls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchedPoll"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/PatchedPoll"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PatchedPoll"
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Poll"
+          description: ""
+    delete:
+      operationId: polls_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      tags:
+        - polls
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "204":
+          description: No response body
+  /api/polls/responses/:
+    post:
+      operationId: polls_responses_create
+      tags:
+        - polls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateResponse"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/CreateResponse"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/CreateResponse"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateResponse"
+          description: ""
+  /api/polls/responses/me/:
+    get:
+      operationId: polls_responses_me_list
+      description: List all responses for the current authenticated user
+      tags:
+        - polls
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Response"
+          description: ""
+  /api/users/:
+    get:
+      operationId: users_list
+      description: |-
+        An example endpoint to list all users or create a user the normal way
+        (not recommended in this scenario if all users must come from invites).
+        Possibly keep it for admin or testing usage.
+      tags:
+        - users
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+          description: ""
+    post:
+      operationId: users_create
+      description: |-
+        An example endpoint to list all users or create a user the normal way
+        (not recommended in this scenario if all users must come from invites).
+        Possibly keep it for admin or testing usage.
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/User"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+        - {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: ""
+  /api/users/invitations/:
+    get:
+      operationId: users_invitations_list
+      description: |-
+        Endpoint for listing or creating invitations.
+        The creation part should be restricted to authorized users only (e.g. staff).
+      tags:
+        - users
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invitation"
+          description: ""
+    post:
+      operationId: users_invitations_create
+      description: |-
+        Endpoint for listing or creating invitations.
+        The creation part should be restricted to authorized users only (e.g. staff).
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Invitation"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Invitation"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Invitation"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invitation"
+          description: ""
+  /api/users/register/:
+    post:
+      operationId: users_register_create
+      description: Public endpoint to register using an invite code & invite password.
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterWithInvite"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/RegisterWithInvite"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/RegisterWithInvite"
+        required: true
+      security:
+        - cookieAuth: []
+        - basicAuth: []
+        - {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterWithInvite"
+          description: ""
+components:
+  schemas:
+    Choice:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        text:
+          type: string
+          maxLength: 255
+      required:
+        - id
+        - text
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        topic:
+          type: integer
+        user:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+        parent:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        replies:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+        - content
+        - created_at
+        - id
+        - replies
+        - topic
+        - user
+    CreateResponse:
+      type: object
+      description: |-
+        Serializer to create a user response.
+        Expects:
+          - question
+          - (optional) free_text_answer
+          - (optional) choice_ids for the selected choice(s)
+      properties:
+        question:
+          type: integer
+        free_text_answer:
+          type: string
+          nullable: true
+        choice_ids:
+          type: array
+          items:
+            type: integer
+          writeOnly: true
+      required:
+        - question
+    Invitation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        code:
+          type: string
+          format: uuid
+          readOnly: true
+        invite_password:
+          type: string
+          maxLength: 128
+        invited_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        invited_by_username:
+          type: string
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          readOnly: true
+        invited_user:
+          type: integer
+          readOnly: true
+          nullable: true
+        invited_user_username:
+          type: string
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        expires_at:
+          type: string
+          format: date-time
+      required:
+        - code
+        - created_at
+        - id
+        - invite_password
+        - invited_by
+        - invited_by_username
+        - invited_user
+        - invited_user_username
+    PatchedPoll:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        created_by:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_core_survey:
+          type: boolean
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Question"
+          readOnly: true
+    PatchedTopic:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+          nullable: true
+        topic_type:
+          $ref: "#/components/schemas/TopicTypeEnum"
+        poll:
+          type: integer
+          nullable: true
+        poll_details:
+          allOf:
+            - $ref: "#/components/schemas/Poll"
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    Poll:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        created_by:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_core_survey:
+          type: boolean
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Question"
+          readOnly: true
+      required:
+        - created_at
+        - created_by
+        - id
+        - questions
+        - title
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        text:
+          type: string
+          maxLength: 500
+        question_type:
+          $ref: "#/components/schemas/QuestionTypeEnum"
+        allow_free_form:
+          type: boolean
+        choices:
+          type: array
+          items:
+            $ref: "#/components/schemas/Choice"
+          readOnly: true
+      required:
+        - choices
+        - id
+        - question_type
+        - text
+    QuestionTypeEnum:
+      enum:
+        - single
+        - multiple
+        - text
+      type: string
+      description: |-
+        * `single` - Single Choice
+        * `multiple` - Multiple Choice
+        * `text` - Text Input
+    RegisterWithInvite:
+      type: object
+      description: |-
+        Serializer to validate invite code + invite password,
+        and then create a new user if valid.
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+        invite_code:
+          type: string
+          format: uuid
+        invite_password:
+          type: string
+      required:
+        - invite_code
+        - invite_password
+        - password
+        - username
+    Response:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        question:
+          type: integer
+        free_text_answer:
+          type: string
+          nullable: true
+        selected_choices:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResponseChoice"
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - created_at
+        - id
+        - question
+        - selected_choices
+        - user
+    ResponseChoice:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        choice:
+          type: integer
+      required:
+        - choice
+        - id
+    Topic:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+          nullable: true
+        topic_type:
+          $ref: "#/components/schemas/TopicTypeEnum"
+        poll:
+          type: integer
+          nullable: true
+        poll_details:
+          allOf:
+            - $ref: "#/components/schemas/Poll"
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - created_at
+        - id
+        - poll_details
+        - title
+        - user
+    TopicTypeEnum:
+      enum:
+        - discussion
+        - poll
+      type: string
+      description: |-
+        * `discussion` - Discussion
+        * `poll` - Poll
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        has_completed_core_survey:
+          type: boolean
+      required:
+        - id
+        - username
+    Vote:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        topic:
+          type: integer
+        vote_type:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+        - id
+        - topic
+        - vote_type
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
