@@ -2,5 +2,21 @@
   "common": {
     "getStarted": "ابدأ الآن",
     "language": "English"
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول/إنشاء حساب",
+    "loginSubtitle": "تسجيل الدخول إلى تكامل",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "newToTakamol": "جديد في تكامل؟",
+    "signUpWithPasskey": "التسجيل باستخدام مفتاح المرور",
+    "signupTitle": "التسجيل باستخدام مفتاح المرور",
+    "welcomeMessage": "مرحباً بك في تكامل!",
+    "passkeyDescription": "أدخل مفتاح المرور المقدم لك من قبل أحد المشرفين. مفتاح المرور خاص بك ويجب عدم مشاركته. بدلاً من ذلك، يمكنك أيضاً مسح رمز QR.",
+    "enterPasskey": "أدخل مفتاح المرور",
+    "scanQRCode": "مسح رمز QR",
+    "passkey": "مفتاح المرور",
+    "signUp": "تسجيل"
   }
 }

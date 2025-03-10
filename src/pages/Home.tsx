@@ -18,10 +18,6 @@ const Home: React.FC = () => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
 
-  // Add this useEffect to set initial direction
-  useEffect(() => {
-    document.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
-  }, [i18n.language]);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'ar' ? 'en' : 'ar';

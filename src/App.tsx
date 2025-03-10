@@ -37,10 +37,17 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/global.css';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 setupIonicReact();
 
 const App: React.FC = () => {
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    document.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+  }, [i18n.language]);
+
   return (
     <IonApp>
       <IonReactRouter>
