@@ -1,24 +1,19 @@
 import {
-  useQuery,
   useMutation,
-  UseQueryOptions,
   UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
 } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { apiClient } from "../api/client";
+import { ApiHooks, ApiRequestConfig, QueryKeyT } from "../types/api";
 
-type QueryKeyT = [string, object | undefined];
-
-export const useApi = () => {
+export const useApi = (): ApiHooks => {
   const fetcher = async <ResponseData>({
     url,
     method = "GET",
     params,
-  }: {
-    url: string;
-    method?: string;
-    params?: object;
-  }): Promise<ResponseData> => {
+  }: ApiRequestConfig): Promise<ResponseData> => {
     const response = await apiClient.request({
       url,
       method,
@@ -27,7 +22,7 @@ export const useApi = () => {
     return response.data;
   };
 
-  const useApiQuery = <ResponseData>(
+  const useApiQuery: ApiHooks["useApiQuery"] = <ResponseData>(
     url: string,
     params?: object,
     options?: Omit<
@@ -42,7 +37,10 @@ export const useApi = () => {
     });
   };
 
-  const useApiMutation = <ResponseData, RequestData>(
+  const useApiMutation: ApiHooks["useApiMutation"] = <
+    ResponseData,
+    RequestData
+  >(
     url: string,
     options?: Omit<
       UseMutationOptions<ResponseData, AxiosError, RequestData>,
@@ -51,7 +49,7 @@ export const useApi = () => {
     method = "POST"
   ) => {
     return useMutation<ResponseData, AxiosError, RequestData>({
-      mutationFn: (data: RequestData) =>
+      mutationFn: (data) =>
         fetcher<ResponseData>({
           url,
           method,
@@ -64,5 +62,5 @@ export const useApi = () => {
   return {
     useApiQuery,
     useApiMutation,
-  };
+  } satisfies ApiHooks;
 };
