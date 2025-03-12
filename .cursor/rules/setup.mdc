@@ -5,9 +5,12 @@ alwaysApply: true
 ---
 # Takaamol Ionic Web App
 
+Use Sequential Thinking  
+
 - This is an invitation-based social media front-end web application designed to foster a secure and engaging community experience.
 - Users register and log in using invitation codes, usernames, passwords, or alternative methods like passkeys and QR codes. Once in, they can create and interact with posts, add comments with likes and replies, and participate in interactive polls and surveys that include CAPTCHA verification to prevent spam. Additionally, users have comprehensive profile and community management options—including managing personal info, saved posts, and invited members—plus a support chat for help. 
 - This app front-end is built with Ionic 8, React 18, and Vite, using TanStack Query for efficient data handling and Zustand for state management, axios, TypeScript, ensuring a responsive and scalable user experience.
+- The supported languages of this project are: English & Arabic. Make sure to support both of them using [en.json](mdc:src/locales/en.json) and [ar.json](mdc:src/locales/ar.json) files. English is the default language.
 
 
 - Project Structure
