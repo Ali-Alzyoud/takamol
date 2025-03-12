@@ -39,6 +39,7 @@ import './theme/variables.css';
 import './theme/global.css';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TermsAndPrivacy } from './components/TermsAndPrivacy';
 
 setupIonicReact();
 
@@ -55,6 +56,7 @@ const App: React.FC = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/terms" component={TermsAndPrivacy} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

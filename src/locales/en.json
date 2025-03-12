@@ -1,7 +1,8 @@
 {
   "common": {
     "getStarted": "Get Started",
-    "language": "العربية"
+    "language": "العربية",
+    "logo": "Logo"
   },
   "auth": {
     "loginTitle": "Log in/create account",
@@ -18,5 +19,29 @@
     "scanQRCode": "Scan QR Code",
     "passkey": "Passkey",
     "signUp": "Sign Up"
+  },
+  "terms": {
+    "title": "Terms & Privacy",
+    "privacy": {
+      "title": "Privacy with purpose",
+      "description": "Your survey responses help drive meaningful decisions. While your answers aren't stored locally, they are handled with care—securely processed to ensure anonymity and used only to uncover insights that benefit your community. We never sell or misuse your data."
+    },
+    "collective": {
+      "title": "Empowering collective action",
+      "description": "This app is more than a survey tool—it's a way to bring your community together. By sharing your perspectives, you contribute to informed decisions that reflect the needs and values of everyone involved. Every voice matters, and every answer helps shape a better outcome."
+    },
+    "transparency": {
+      "title": "Transparency you can trust",
+      "description": {
+        "start": "We're committed to using your data responsibly to strengthen your community. By continuing, you agree to our",
+        "and": "and",
+        "end": ", ensuring clarity and trust every step of the way."
+      }
+    },
+    "links": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    },
+    "accept": "I Accept"
   }
 }
