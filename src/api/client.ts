@@ -3,6 +3,11 @@ import { useAuthStore } from "../store/auth";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+interface ApiErrorResponse {
+  message: string;
+  [key: string]: unknown;
+}
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -18,8 +23,10 @@ export class ApiError extends Error {
     const message =
       error.response?.data &&
       typeof error.response.data === "object" &&
-      "message" in error.response.data
-        ? String(error.response.data.message)
+      error.response.data !== null &&
+      "message" in error.response.data &&
+      typeof (error.response.data as ApiErrorResponse).message === "string"
+        ? (error.response.data as ApiErrorResponse).message
         : error.message;
     const data = error.response?.data;
     return new ApiError(status, message, data);

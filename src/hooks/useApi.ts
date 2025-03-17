@@ -62,5 +62,5 @@ export const useApi = (): ApiHooks => {
   return {
     useApiQuery,
     useApiMutation,
-  } satisfies ApiHooks;
+  } as ApiHooks;
 };

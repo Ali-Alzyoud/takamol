@@ -1,9 +1,14 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import { TermsAndPrivacy } from './components/TermsAndPrivacy';
+import { AuthGuard } from './components/AuthGuard';
 
 import './i18n';
 
@@ -37,14 +42,12 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/global.css';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { TermsAndPrivacy } from './components/TermsAndPrivacy';
 
 setupIonicReact();
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
+
   useEffect(() => {
     document.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
   }, [i18n.language]);
@@ -53,10 +56,18 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/" component={Home} />
+          {/* Public Routes */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/terms" component={TermsAndPrivacy} />
+
+          {/* Protected Routes */}
+          <Route path="/">
+            <AuthGuard>
+              <Route exact path="/" component={Home} />
+              {/* Add other protected routes here */}
+            </AuthGuard>
+          </Route>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
