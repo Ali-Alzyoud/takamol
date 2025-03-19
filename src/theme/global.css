@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 html {
   --ion-dynamic-font: var(--ion-default-dynamic-font);
   --ion-font-family: "Merriweather", serif;
@@ -33,4 +35,18 @@ ion-segment-button {
 /* Text styles */
 .subtitle-text {
   color: rgba(255, 255, 255, 0.6);
+}
+
+ion-toolbar {
+  background-color: #000;
+}
+
+ion-textarea {
+  width: 100%;
+  border: 1px solid #31343d;
+  border-radius: 0.5rem;
+  --padding-start: 0.75rem;
+  --padding-end: 0.75rem;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
 }

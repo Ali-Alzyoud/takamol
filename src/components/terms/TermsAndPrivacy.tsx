@@ -1,7 +1,8 @@
-import { IonButton, IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonImg, IonPage } from '@ionic/react';
 import styles from './TermsAndPrivacy.module.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { paths } from '../../utils/paths';
 
 export const TermsAndPrivacy = (onAccept: { onAccept: VoidFunction }) => {
   const { t } = useTranslation();
@@ -11,7 +12,9 @@ export const TermsAndPrivacy = (onAccept: { onAccept: VoidFunction }) => {
       <IonContent>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="/assets/logo.svg" alt={t('common.logo')} />
+            <IonImg src="/assets/logo.svg" alt={t('common.logo')} style={{
+              width: 40
+            }} />
           </div>
 
           <h1 className={styles.title}>{t('terms.title')}</h1>
@@ -30,11 +33,11 @@ export const TermsAndPrivacy = (onAccept: { onAccept: VoidFunction }) => {
             <h2>{t('terms.transparency.title')}</h2>
             <p>
               {t('terms.transparency.description.start')}{' '}
-              <Link to="/terms" className={styles.link}>
+              <Link to={paths.terms} className={styles.link}>
                 {t('terms.links.terms')}
               </Link>{' '}
               {t('terms.transparency.description.and')}{' '}
-              <Link to="/privacy" className={styles.link}>
+              <Link to={paths.privacy} className={styles.link}>
                 {t('terms.links.privacy')}
               </Link>
               {t('terms.transparency.description.end')}

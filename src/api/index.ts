@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "../store/auth";
-
+import { paths } from "../utils/paths";
 export const api = axios.create({
   baseURL: "/api",
   withCredentials: true,
@@ -12,7 +12,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       const auth = useAuthStore.getState();
       await auth.logout();
-      window.location.href = "/login";
+      window.location.href = paths.login;
     }
     return Promise.reject(error);
   }

@@ -3,12 +3,15 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import { TermsAndPrivacy } from './components/TermsAndPrivacy';
-import { AuthGuard } from './components/AuthGuard';
+import { TermsAndPrivacy } from './components/terms/TermsAndPrivacy';
+import { AuthGuard } from './components/auth/AuthGuard';
+import { DiscussionPage } from './pages/Discussion';
+import { TopicPage } from './pages/Topic';
 
 import './i18n';
 
@@ -42,6 +45,9 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/global.css';
+import { paths } from './utils/paths';
+
+const queryClient = new QueryClient();
 
 setupIonicReact();
 
@@ -53,24 +59,48 @@ const App: React.FC = () => {
   }, [i18n.language]);
 
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          {/* Public Routes */}
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/terms" component={TermsAndPrivacy} />
+    <QueryClientProvider client={queryClient}>
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            {/* Public Routes */}
+            <Route exact path={paths.login}>
+              <Login />
+            </Route>
+            <Route exact path={paths.signup}>
+              <Signup />
+            </Route>
+            <Route exact path={paths.terms}>
+              <TermsAndPrivacy
+                onAccept={() => {
+                  window.location.href = paths.login;
+                }}
+              />
+            </Route>
 
-          {/* Protected Routes */}
-          <Route path="/">
-            <AuthGuard>
-              <Route exact path="/" component={Home} />
-              {/* Add other protected routes here */}
-            </AuthGuard>
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
+            {/* Protected Routes */}
+            <Route exact path={paths.home}>
+              <Home />
+            </Route>
+            <Route exact path={paths.discussions}>
+              <AuthGuard>
+                <DiscussionPage />
+              </AuthGuard>
+            </Route>
+            <Route exact path={`${paths.topic}/:id`}>
+              <AuthGuard>
+                <TopicPage />
+              </AuthGuard>
+            </Route>
+
+            {/* Fallback Route - Redirect to login if no route matches */}
+            <Route>
+              <Redirect to={paths.login} />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
+    </QueryClientProvider>
   );
 };
 

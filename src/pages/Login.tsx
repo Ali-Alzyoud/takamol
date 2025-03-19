@@ -13,28 +13,33 @@ import { arrowForward, key } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
 import { useHistory } from 'react-router-dom';
-
+import { paths } from '../utils/paths';
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your login logic here
+    // TODO:Add your login logic here
+    try {
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   const handleSignupClick = () => {
-    history.push('/signup');
+    history.push(paths.signup);
   };
+
 
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <IonToolbar>
+        <IonToolbar >
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonBackButton defaultHref={paths.home} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

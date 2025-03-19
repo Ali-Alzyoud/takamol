@@ -1,0 +1,54 @@
+.card {
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+
+.title {
+  margin-top: 0.5rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.bookmark {
+  cursor: pointer;
+}

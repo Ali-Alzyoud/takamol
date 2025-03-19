@@ -15,14 +15,14 @@ import { arrowForward, key, qrCode } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import './Signup.css';
-
+import { paths } from '../utils/paths';
 const Signup: React.FC = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'passkey' | 'qr'>('passkey');
   const [passkey, setPasskey] = useState('');
 
   const handleSignup = () => {
-    // Implement signup logic here
+    // TODO: Implement signup logic here
     console.log('Signing up with passkey:', passkey);
   };
 
@@ -31,7 +31,7 @@ const Signup: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/login" />
+            <IonBackButton defaultHref={paths.login} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

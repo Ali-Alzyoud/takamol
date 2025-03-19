@@ -1,17 +1,18 @@
 import {
-  IonContent,
-  IonPage,
   IonButton,
-  IonIcon,
-  IonHeader,
-  IonToolbar,
   IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonPage,
+  IonToolbar,
 } from '@ionic/react';
 import { globeOutline } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
-import './Home.css';
-import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { paths } from '../utils/paths';
+import './Home.css';
 
 
 const Home: React.FC = () => {
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
   };
 
   const handleGetStarted = () => {
-    history.push('/login');
+    history.push(paths.login);
   };
 
   return (
@@ -44,7 +45,7 @@ const Home: React.FC = () => {
 
       <IonContent fullscreen className="ion-padding">
         <div className="logo-container">
-          <img src="/assets/logo.svg" alt="Takamol Logo" className="logo" />
+          <IonImg src="/assets/logo.svg" alt="Takamol Logo" className="logo" />
         </div>
 
         <div className="button-container">

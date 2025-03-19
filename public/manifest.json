@@ -1,16 +1,16 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "Takamol",
+  "name": "Takamol",
   "icons": [
     {
-      "src": "assets/icon/favicon.png",
+      "src": "assets/icon/icon24.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "assets/icon/icon192.png",
+      "src": "assets/icon/icon180.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "180x180"
     },
     {
       "src": "assets/icon/icon512.png",
