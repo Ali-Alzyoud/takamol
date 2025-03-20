@@ -58,10 +58,7 @@ export const useAuthStore = create<AuthState>()(
         setError: (error) => set({ error }),
         logout: async () => {
           try {
-            const token = get().token;
-            if (token) {
-              await api.post("/users/logout/");
-            }
+            // ? Do we need to logout from the server?
           } catch (error) {
             console.error("Logout error:", error);
           } finally {

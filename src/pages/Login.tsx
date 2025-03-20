@@ -9,11 +9,12 @@ import {
   IonBackButton,
   IonIcon,
   useIonAlert,
+  IonProgressBar,
 } from '@ionic/react';
 import { arrowBackOutline, arrowForward, key } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory, } from 'react-router-dom';
 import { paths } from '../utils/paths';
 import { useAuthStore } from '../store/auth';
 import { AxiosError } from 'axios';
@@ -54,65 +55,69 @@ const Login: React.FC = () => {
 
 
   return (
-    <IonPage>
-      <IonHeader className="ion-no-border ion-padding-top ion-padding-horizontal">
-        <IonToolbar >
-          <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.home} text={""} icon={i18n.language === 'ar' ? arrowForward : arrowBackOutline} />
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
+    <>
+      {isLoading && <IonProgressBar type="indeterminate"></IonProgressBar>}
+      <IonPage>
 
-      <IonContent>
-        <div className="login-container">
-          <h1>{t('auth.loginTitle')}</h1>
-          <p className="subtitle">{t('auth.loginSubtitle')}</p>
+        <IonHeader className="ion-no-border ion-padding-top ion-padding-horizontal">
+          <IonToolbar >
+            <IonButtons slot="start">
+              <IonBackButton defaultHref={paths.home} text={""} icon={i18n.language === 'ar' ? arrowForward : arrowBackOutline} />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <div className="login-container">
+            <h1>{t('auth.loginTitle')}</h1>
+            <p className="subtitle">{t('auth.loginSubtitle')}</p>
 
-          <form onSubmit={handleSubmit} className="login-form">
-            <IonInput
-              label={t('auth.username')}
-              labelPlacement="floating"
-              fill="solid"
-              className="custom-input"
-              value={username}
-              onIonChange={(e) => setUsername(e.detail.value || '')}
-            />
+            <form onSubmit={handleSubmit} className="login-form">
+              <IonInput
+                label={t('auth.username')}
+                labelPlacement="floating"
+                fill="solid"
+                autoFocus
+                className="custom-input"
+                value={username}
+                onIonInput={(e) => setUsername(e.detail.value || '')}
+              />
 
-            <IonInput
-              label={t('auth.password')}
-              labelPlacement="stacked"
-              type="password"
-              fill="solid"
-              className="custom-input"
-              value={password}
-              onIonChange={(e) => setPassword(e.detail.value || '')}
-            />
+              <IonInput
+                label={t('auth.password')}
+                labelPlacement="stacked"
+                type="password"
+                fill="solid"
+                className="custom-input"
+                value={password}
+                onIonInput={(e) => setPassword(e.detail.value || '')}
+              />
 
-            <IonButton
-              expand="block"
-              className="sign-in-button"
-              type="submit"
-            >
-              {t(isLoading ? 'loading' : 'auth.signIn')}
-              <IonIcon icon={arrowForward} slot="end" />
-            </IonButton>
-          </form>
+              <IonButton
+                expand="block"
+                className="sign-in-button"
+                type="submit"
+              >
+                {t(isLoading ? 'loading' : 'auth.signIn')}
+                <IonIcon icon={arrowForward} slot="end" />
+              </IonButton>
+            </form>
 
-          <div className="signup-section">
-            <p className="new-user-text">{t('auth.newToTakamol')}</p>
-            <IonButton
-              expand="block"
-              fill="outline"
-              className="passkey-button"
-              onClick={handleSignupClick}
-            >
-              {t('auth.signUpWithPasskey')}
-              <IonIcon icon={key} slot="end" />
-            </IonButton>
+            <div className="signup-section">
+              <p className="new-user-text">{t('auth.newToTakamol')}</p>
+              <IonButton
+                expand="block"
+                fill="outline"
+                className="passkey-button"
+                onClick={handleSignupClick}
+              >
+                {t('auth.signUpWithPasskey')}
+                <IonIcon icon={key} slot="end" />
+              </IonButton>
+            </div>
           </div>
-        </div>
-      </IonContent>
-    </IonPage>
+        </IonContent>
+      </IonPage>
+    </>
   );
 };
 

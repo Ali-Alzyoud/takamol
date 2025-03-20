@@ -34,7 +34,7 @@ const getComments = async (topicId: string): Promise<Comment[]> => {
   return [
     {
       id: 1,
-      content: "This is a comment",
+      content: "Free Palestine",
       created_at: new Date().toISOString(),
       user: 1,
       topic: 1,
