@@ -1,8 +1,9 @@
 export interface User {
-  id: number;
+  user_id: number;
   username: string;
   email: string;
-  has_completed_core_survey: boolean;
+  token: string;
+  // has_completed_core_survey: boolean;
 }
 
 export interface RegisterCredentials {

@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { TermsAndPrivacy } from './components/terms/TermsAndPrivacy';
-import { AuthGuard } from './components/auth/AuthGuard';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { DiscussionPage } from './pages/Discussion';
 import { TopicPage } from './pages/Topic';
 
@@ -46,6 +46,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import './theme/global.css';
 import { paths } from './utils/paths';
+import PublicRoute from './components/auth/PublicRoute';
 
 const queryClient = new QueryClient();
 
@@ -63,40 +64,22 @@ const App: React.FC = () => {
       <IonApp>
         <IonReactRouter>
           <IonRouterOutlet>
+
             {/* Public Routes */}
-            <Route exact path={paths.login}>
-              <Login />
-            </Route>
-            <Route exact path={paths.signup}>
-              <Signup />
-            </Route>
-            <Route exact path={paths.terms}>
-              <TermsAndPrivacy
-                onAccept={() => {
-                  window.location.href = paths.login;
-                }}
-              />
-            </Route>
+            <PublicRoute exact path={paths.login} component={Login} authRestricted />
+            <PublicRoute exact path={paths.signup} component={Signup} authRestricted />
+            <PublicRoute exact path={paths.terms} component={TermsAndPrivacy} />
+            <PublicRoute path={paths.home} component={Home} exact />
 
             {/* Protected Routes */}
-            <Route exact path={paths.home}>
-              <Home />
-            </Route>
-            <Route exact path={paths.discussions}>
-              <AuthGuard>
-                <DiscussionPage />
-              </AuthGuard>
-            </Route>
-            <Route exact path={`${paths.topic}/:id`}>
-              <AuthGuard>
-                <TopicPage />
-              </AuthGuard>
-            </Route>
+            <ProtectedRoute component={TopicPage} path={`${paths.topic}/:id`} />
+            <ProtectedRoute component={DiscussionPage} path={paths.discussions} />
 
-            {/* Fallback Route - Redirect to login if no route matches */}
-            <Route>
-              <Redirect to={paths.login} />
-            </Route>
+
+            {/* Fallback Route - Redirect to home if no route matches */}
+            <Route
+              render={() => <Redirect to={paths.home} />}
+            />
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>

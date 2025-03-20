@@ -50,3 +50,7 @@ ion-textarea {
   --padding-top: 1rem;
   --padding-bottom: 1rem;
 }
+
+ion-textarea label {
+  --border-width: 0;
+}

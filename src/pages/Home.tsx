@@ -13,12 +13,12 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { paths } from '../utils/paths';
 import './Home.css';
-
+import { useAuthStore } from '../store/auth';
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
-
+  const { isAuthenticated } = useAuthStore();
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'ar' ? 'en' : 'ar';
@@ -27,7 +27,11 @@ const Home: React.FC = () => {
   };
 
   const handleGetStarted = () => {
-    history.push(paths.login);
+    if (!isAuthenticated) {
+      history.push(paths.login);
+    } else {
+      history.push(paths.discussions);
+    }
   };
 
   return (

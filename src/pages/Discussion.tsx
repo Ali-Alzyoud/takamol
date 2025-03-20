@@ -1,9 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSpinner, IonText } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSpinner, IonText, IonButton } from '@ionic/react';
 import { useQuery } from '@tanstack/react-query';
 import { Topic } from '../types/community';
 import { DiscussionItem } from '../components/discussion/DiscussionItem';
 import styles from './Discussion.module.css';
-
+import MainHeader from '../components/layout/Header';
 // TODO: Replace with actual API call
 const getDiscussions = async (): Promise<Topic[]> => {
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -36,9 +36,9 @@ export const DiscussionPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Discussions</IonTitle>
+      <IonHeader className="ion-padding">
+        <IonToolbar >
+          <MainHeader />
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

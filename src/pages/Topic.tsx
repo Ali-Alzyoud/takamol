@@ -103,7 +103,7 @@ export const TopicPage: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.discussions} />
+            <IonBackButton defaultHref={paths.discussions} text={""} />
           </IonButtons>
           <IonTitle>Discussion</IonTitle>
         </IonToolbar>

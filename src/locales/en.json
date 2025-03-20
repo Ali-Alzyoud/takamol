@@ -18,7 +18,9 @@
     "enterPasskey": "Enter Passkey",
     "scanQRCode": "Scan QR Code",
     "passkey": "Passkey",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "logout": "Logout",
+    "logoutHeader": "Would you like to logout?"
   },
   "terms": {
     "title": "Terms & Privacy",
@@ -43,5 +45,7 @@
       "privacy": "Privacy Policy"
     },
     "accept": "I Accept"
-  }
+  },
+  "loading": "Loading...",
+  "cancel": "Cancel"
 }

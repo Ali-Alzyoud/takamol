@@ -8,24 +8,43 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
+  useIonAlert,
 } from '@ionic/react';
 import { arrowForward, key } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { paths } from '../utils/paths';
+import { useAuthStore } from '../store/auth';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
 
+  const [presentAlert] = useIonAlert();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const { login, isLoading, } = useAuthStore();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO:Add your login logic here
     try {
+      await login({
+        username,
+        password,
+      });
     } catch (error) {
-      console.error('Login failed:', error);
+      presentAlert({
+        header: 'Login failed',
+        message: (error as AxiosError<{ detail: string }>)?.response?.data?.detail || 'Please try again',
+        buttons: ['OK'],
+      });
     }
   };
 
@@ -39,7 +58,7 @@ const Login: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar >
           <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.home} />
+            <IonBackButton defaultHref={paths.home} text={""} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -55,6 +74,8 @@ const Login: React.FC = () => {
               labelPlacement="floating"
               fill="solid"
               className="custom-input"
+              value={username}
+              onIonChange={(e) => setUsername(e.detail.value || '')}
             />
 
             <IonInput
@@ -63,6 +84,8 @@ const Login: React.FC = () => {
               type="password"
               fill="solid"
               className="custom-input"
+              value={password}
+              onIonChange={(e) => setPassword(e.detail.value || '')}
             />
 
             <IonButton
@@ -70,7 +93,7 @@ const Login: React.FC = () => {
               className="sign-in-button"
               type="submit"
             >
-              {t('auth.signIn')}
+              {t(isLoading ? 'loading' : 'auth.signIn')}
               <IonIcon icon={arrowForward} slot="end" />
             </IonButton>
           </form>

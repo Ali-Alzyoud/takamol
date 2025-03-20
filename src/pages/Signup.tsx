@@ -31,7 +31,7 @@ const Signup: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.login} />
+            <IonBackButton defaultHref={paths.login} text={""} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
