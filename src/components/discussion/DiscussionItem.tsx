@@ -1,11 +1,10 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonImg, IonText } from '@ionic/react';
-import { bookmark, chatbubbleOutline } from 'ionicons/icons';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonImg, IonText, useIonRouter } from '@ionic/react';
+import { bookmark } from 'ionicons/icons';
 import { Topic } from '../../types/community';
-import { useIonRouter } from '@ionic/react';
-import styles from './DiscussionItem.module.css';
 import getAvatar from '../../utils/getAvatar';
 import { paths } from '../../utils/paths';
-
+import styles from './DiscussionItem.module.css';
+import { useState } from 'react';
 interface Props {
   topic: Topic;
   isSaved?: boolean;
@@ -13,6 +12,8 @@ interface Props {
 
 export const DiscussionItem: React.FC<Props> = ({ topic, isSaved }) => {
   const router = useIonRouter();
+
+  const [saved, setSaved] = useState(isSaved);
 
   return (
     <IonCard className={styles.card} onClick={() => router.push(`${paths.topic}/${topic.id}`)}>
@@ -36,10 +37,11 @@ export const DiscussionItem: React.FC<Props> = ({ topic, isSaved }) => {
           </div>
           <IonIcon
             icon={bookmark}
-            color={isSaved ? 'primary' : 'medium'}
+            color={saved ? 'primary' : 'medium'}
             className={styles.bookmark}
             onClick={(e) => {
               e.stopPropagation();
+              setSaved(p => !p);
               // TODO: Implement save functionality
             }}
           />

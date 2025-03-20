@@ -36,29 +36,29 @@ export const DiscussionPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-padding">
+      <IonHeader >
         <IonToolbar >
           <MainHeader />
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
-        {isLoading && (
+      <IonContent >
+        {isLoading ? (
           <div className={styles.loadingContainer}>
             <IonSpinner />
           </div>
-        )}
-
-        {error && (
+        ) : error ? (
           <div className={styles.errorContainer}>
             <IonText color="danger">Failed to load discussions</IonText>
           </div>
-        )}
-
-        {discussions && (
+        ) : discussions ? (
           <div className={styles.grid}>
             {discussions.map(topic => (
               <DiscussionItem key={topic.id} topic={topic} />
             ))}
+          </div>
+        ) : (
+          <div className={styles.errorContainer}>
+            <IonText color="danger">No discussions found</IonText>
           </div>
         )}
       </IonContent>

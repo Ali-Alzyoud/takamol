@@ -10,7 +10,7 @@ import {
   IonIcon,
   useIonAlert,
 } from '@ionic/react';
-import { arrowForward, key } from 'ionicons/icons';
+import { arrowBackOutline, arrowForward, key } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
 import { useHistory, Redirect } from 'react-router-dom';
@@ -20,7 +20,7 @@ import { AxiosError } from 'axios';
 import { useState } from 'react';
 
 const Login: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const history = useHistory();
 
   const [presentAlert] = useIonAlert();
@@ -55,15 +55,15 @@ const Login: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border">
+      <IonHeader className="ion-no-border ion-padding-top ion-padding-horizontal">
         <IonToolbar >
           <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.home} text={""} />
+            <IonBackButton defaultHref={paths.home} text={""} icon={i18n.language === 'ar' ? arrowForward : arrowBackOutline} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding">
+      <IonContent>
         <div className="login-container">
           <h1>{t('auth.loginTitle')}</h1>
           <p className="subtitle">{t('auth.loginSubtitle')}</p>

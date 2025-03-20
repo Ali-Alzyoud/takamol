@@ -31,6 +31,8 @@ export const TopicDetails: React.FC<Props> = ({
 }) => {
   const [newComment, setNewComment] = useState('');
 
+  const [saved, setSaved] = useState(isSaved);
+
   return (
     <IonCard>
       <IonCardHeader>
@@ -45,10 +47,14 @@ export const TopicDetails: React.FC<Props> = ({
             </div>
           </div>
           <IonIcon
-            icon={isSaved ? bookmark : bookmarkOutline}
-            color={isSaved ? 'primary' : 'medium'}
+            icon={saved ? bookmark : bookmarkOutline}
+            color={saved ? 'primary' : 'medium'}
             className={styles.bookmarkIcon}
-            onClick={() => onSave(topic.id)}
+            onClick={() => {
+              // TODO: Implement save functionality
+              setSaved(p => !p);
+              onSave(topic.id);
+            }}
           />
         </div>
         <IonCardTitle className={styles.title}>{topic.title}</IonCardTitle>

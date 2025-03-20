@@ -83,6 +83,10 @@ http://ionicframework.com/docs/theming/ */
   --ion-item-background: rgba(255, 255, 255, 0.1);
   --ion-item-border-color: transparent;
   --ion-item-color: #ffffff;
+
+  --font-large: 16px;
+  --font-medium: 14px;
+  --font-small: 12px;
 }
 
 /* Global dark theme styles */

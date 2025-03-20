@@ -1,9 +1,9 @@
 import { IonButton, IonIcon, IonImg, IonText, IonTextarea } from '@ionic/react';
-import { heart, heartOutline, arrowUndo } from 'ionicons/icons';
-import { Comment } from '../../types/community';
+import { heart, heartOutline } from 'ionicons/icons';
 import { useState } from 'react';
-import styles from './CommentItem.module.css';
+import { Comment } from '../../types/community';
 import getAvatar from '../../utils/getAvatar';
+import styles from './CommentItem.module.css';
 
 interface Props {
   comment: Comment;
@@ -16,6 +16,8 @@ interface Props {
 export const CommentItem: React.FC<Props> = ({ comment, onReply, onLike, level = 0, isLiked }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState('');
+  const [liked, setLiked] = useState(isLiked);
+  const [likes, setLikes] = useState(0);
   return (
     <div className={`${styles.container} ${level > 0 ? styles.nested : ''}`}>
       <div className={styles.commentBody}>
@@ -23,25 +25,30 @@ export const CommentItem: React.FC<Props> = ({ comment, onReply, onLike, level =
         <div className={styles.content}>
           <div className={styles.header}>
             <IonText className={styles.userName}>User {comment.user}</IonText>
-            <IonText color="medium">·</IonText>
-            <IonText color="medium">{new Date(comment.created_at).toLocaleDateString()}</IonText>
+            <IonText>·</IonText>
+            <IonText>{new Date(comment.created_at).toLocaleDateString()}</IonText>
           </div>
           <IonText className={styles.text}>{comment.content}</IonText>
           <div className={styles.actions}>
-            <div className={styles.actionButton} onClick={() => onLike(comment.id)}>
+            <IonButton fill="clear" size="large" className={styles.actionButton} onClick={() => {
+              setLiked(p => !p);
+              setLikes(p => p + (liked ? -1 : 1));
+              onLike(comment.id);
+            }}>
               <IonIcon
-                icon={isLiked ? heart : heartOutline}
-                color={isLiked ? 'primary' : 'medium'}
+                icon={liked ? heart : heartOutline}
+                color={liked ? 'primary' : 'medium'}
               />
-              <IonText color="medium">0</IonText>
-            </div>
-            <div
+            </IonButton>
+            <IonText>{likes}</IonText>
+            <IonButton
               className={styles.actionButton}
               onClick={() => setShowReplyForm(prev => !prev)}
+              fill="clear"
             >
-              <IonIcon icon={arrowUndo} color="medium" />
-              <IonText color="medium">Reply</IonText>
-            </div>
+              <IonIcon icon={"/assets/images/icons/chat-text.svg"} />
+            </IonButton>
+            <IonText >Reply</IonText>
           </div>
         </div>
       </div>

@@ -5,7 +5,8 @@ import { Topic, Comment } from '../types/community';
 import { TopicDetails } from '../components/discussion/TopicDetails';
 import styles from './Topic.module.css';
 import { paths } from '../utils/paths';
-
+import { arrowBackOutline, arrowForward } from 'ionicons/icons';
+import { useTranslation } from 'react-i18next';
 // TODO: Replace with actual API calls
 const getTopic = async (id: string): Promise<Topic> => {
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -45,7 +46,7 @@ const getComments = async (topicId: string): Promise<Comment[]> => {
 export const TopicPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
-
+  const { i18n } = useTranslation();
   const { data: topic, isLoading: isTopicLoading, error: topicError } = useQuery({
     queryKey: ['topic', id],
     queryFn: () => getTopic(id)
@@ -100,15 +101,15 @@ export const TopicPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="ion-padding">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.discussions} text={""} />
+            <IonBackButton defaultHref={paths.discussions} text={""} icon={i18n.language === 'ar' ? arrowForward : arrowBackOutline} />
           </IonButtons>
           <IonTitle>Discussion</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent>
         {isLoading && (
           <div className={styles.loadingContainer}>
             <IonSpinner />

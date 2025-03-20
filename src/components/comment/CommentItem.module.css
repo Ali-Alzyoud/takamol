@@ -10,7 +10,7 @@
 
 .commentBody {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .avatar {
@@ -41,19 +41,35 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 4px;
   margin-top: 0.5rem;
 }
 
 .actionButton {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  --border-radius: 0;
   cursor: pointer;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --min-height: auto;
+  min-height: auto;
+}
+.actionButton ion-icon {
+  font-size: 16px;
+}
+
+.actionButton:first-of-type + ion-text {
+  min-width: 50px;
+}
+
+.actionButton + ion-text {
+  font-weight: 700;
+  font-size: var(--font-small);
 }
 
 .replyForm {
-  margin-left: 3.5rem;
+  margin-left: 3rem;
 }
 
 .textarea {

@@ -11,13 +11,13 @@ import {
   IonSegment,
   IonSegmentButton,
 } from '@ionic/react';
-import { arrowForward, key, qrCode } from 'ionicons/icons';
+import { arrowBackOutline, arrowForward, key, qrCode } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import './Signup.css';
 import { paths } from '../utils/paths';
 const Signup: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState<'passkey' | 'qr'>('passkey');
   const [passkey, setPasskey] = useState('');
 
@@ -28,10 +28,10 @@ const Signup: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border">
+      <IonHeader className="ion-no-border ion-padding">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={paths.login} text={""} />
+            <IonBackButton defaultHref={paths.login} text={""} icon={i18n.language === 'ar' ? arrowForward : arrowBackOutline} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
