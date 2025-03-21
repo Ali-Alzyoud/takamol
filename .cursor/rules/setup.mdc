@@ -29,3 +29,8 @@ Use Sequential Thinking
    └── main.tsx                   # Entry point, mounting Ionic React app
 
 - A typical page will be located in /src/pages and may consist of one or many modules structured in /src/modules. The module will likely have its own hooks and components and may use shared components that are in /src/components
+
+
+
+
+
