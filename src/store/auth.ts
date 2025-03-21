@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>()(
         setToken: (token) => {
           set({ token });
           if (token) {
-            api.defaults.headers.common.Authorization = `Bearer ${token}`;
+            api.defaults.headers.common.Authorization = `Token ${token}`;
           } else {
             delete api.defaults.headers.common.Authorization;
           }
@@ -72,7 +72,7 @@ export const useAuthStore = create<AuthState>()(
             const { data } = await api.post("/users/login/", credentials);
             const { token, ...user } = data;
             set({ user, token, isAuthenticated: true, isLoading: false });
-            api.defaults.headers.common.Authorization = `Bearer ${token}`;
+            api.defaults.headers.common.Authorization = `Token ${token}`;
           } catch (error) {
             set({ isLoading: false });
             throw error;
@@ -84,7 +84,7 @@ export const useAuthStore = create<AuthState>()(
             const { data: response } = await api.post("/users/register/", data);
             const { token, ...user } = response;
             set({ user, token, isAuthenticated: true, isLoading: false });
-            api.defaults.headers.common.Authorization = `Bearer ${token}`;
+            api.defaults.headers.common.Authorization = `Token ${token}`;
           } catch (error) {
             set({ isLoading: false });
             throw error;
@@ -98,7 +98,7 @@ export const useAuthStore = create<AuthState>()(
             );
             const { token, ...user } = response;
             set({ user, token, isAuthenticated: true, isLoading: false });
-            api.defaults.headers.common.Authorization = `Bearer ${token}`;
+            api.defaults.headers.common.Authorization = `Token ${token}`;
           } catch (error) {
             set({ isLoading: false });
             throw error;
@@ -112,7 +112,7 @@ export const useAuthStore = create<AuthState>()(
             });
             const { token, ...user } = response;
             set({ user, token, isAuthenticated: true, isLoading: false });
-            api.defaults.headers.common.Authorization = `Bearer ${token}`;
+            api.defaults.headers.common.Authorization = `Token ${token}`;
           } catch (error) {
             set({ isLoading: false });
             throw error;
