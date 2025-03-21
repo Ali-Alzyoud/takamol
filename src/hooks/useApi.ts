@@ -5,7 +5,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { apiClient } from "../api/client";
+import { api } from "../api";
 import { ApiHooks, ApiRequestConfig, QueryKeyT } from "../types/api";
 
 export const useApi = (): ApiHooks => {
@@ -14,7 +14,7 @@ export const useApi = (): ApiHooks => {
     method = "GET",
     params,
   }: ApiRequestConfig): Promise<ResponseData> => {
-    const response = await apiClient.request({
+    const response = await api.request({
       url,
       method,
       params,

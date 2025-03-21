@@ -1,6 +1,29 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useAuthStore } from "../store/auth";
 import { paths } from "../utils/paths";
+
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    public message: string,
+    public data?: any
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+
+  static fromAxiosError(error: AxiosError): ApiError {
+    const status = error.response?.status || 500;
+    const message =
+      error.response?.data &&
+      typeof error.response.data === "object" &&
+      "message" in error.response.data
+        ? (error.response.data as { message: string }).message
+        : error.message;
+    const data = error.response?.data;
+    return new ApiError(status, message, data);
+  }
+}
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -37,7 +60,7 @@ api.interceptors.response.use(
       }
     }
 
-    return Promise.reject(error);
+    return Promise.reject(ApiError.fromAxiosError(error));
   }
 );
 
