@@ -1,30 +1,29 @@
 import {
-  IonContent,
-  IonPage,
-  IonButton,
-  IonInput,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
   IonBackButton,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
   IonIcon,
-  useIonAlert,
+  IonInput,
+  IonPage,
   IonProgressBar,
+  IonToolbar
 } from '@ionic/react';
 import { arrowBackOutline, arrowForward, key } from 'ionicons/icons';
-import { useTranslation } from 'react-i18next';
-import './Login.css';
-import { useHistory, } from 'react-router-dom';
-import { paths } from '../utils/paths';
-import { useAuthStore } from '../store/auth';
-import { AxiosError } from 'axios';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory, } from 'react-router-dom';
+import { useAlert } from '../hooks/useAlert';
+import { useAuthStore } from '../store/auth';
+import { paths } from '../utils/paths';
+import './Login.css';
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
 
-  const [presentAlert] = useIonAlert();
+  const { showAlert } = useAlert();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -41,11 +40,7 @@ const Login: React.FC = () => {
         password,
       });
     } catch (error) {
-      presentAlert({
-        header: 'Login failed',
-        message: (error as AxiosError<{ detail: string }>)?.response?.data?.detail || 'Please try again',
-        buttons: ['OK'],
-      });
+      showAlert(error);
     }
   };
 

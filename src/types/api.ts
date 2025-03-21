@@ -14,6 +14,14 @@ export interface ApiRequestConfig {
   params?: object;
 }
 
+export interface ApiError {
+  type: string;
+  errors: {
+    code: string;
+    detail: string;
+  }[];
+}
+
 export interface ApiHooks {
   useApiQuery: <ResponseData>(
     url: string,

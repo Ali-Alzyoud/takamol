@@ -47,5 +47,7 @@
     "accept": "I Accept"
   },
   "loading": "Loading...",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "genericError": "An error occurred. Please try again.",
+  "genericErrorTitle": "Error"
 }

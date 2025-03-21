@@ -47,5 +47,7 @@
     "accept": "أوافق"
   },
   "loading": "جاري التحميل...",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "genericErrorTitle": "خطأ"
 }
