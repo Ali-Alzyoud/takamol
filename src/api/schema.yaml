@@ -8,10 +8,11 @@ paths:
     get:
       operationId: community_list
       tags:
-        - community
+      - community
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -24,22 +25,23 @@ paths:
     post:
       operationId: community_create
       tags:
-        - community
+      - community
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Topic"
+              $ref: "#/components/schemas/TopicRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Topic"
+              $ref: "#/components/schemas/TopicRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Topic"
+              $ref: "#/components/schemas/TopicRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -51,16 +53,17 @@ paths:
     get:
       operationId: community_retrieve
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - community
+      - community
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -71,28 +74,29 @@ paths:
     put:
       operationId: community_update
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - community
+      - community
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Topic"
+              $ref: "#/components/schemas/TopicRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Topic"
+              $ref: "#/components/schemas/TopicRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Topic"
+              $ref: "#/components/schemas/TopicRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -103,27 +107,28 @@ paths:
     patch:
       operationId: community_partial_update
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - community
+      - community
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatchedTopic"
+              $ref: "#/components/schemas/PatchedTopicRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/PatchedTopic"
+              $ref: "#/components/schemas/PatchedTopicRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/PatchedTopic"
+              $ref: "#/components/schemas/PatchedTopicRequest"
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -134,61 +139,63 @@ paths:
     delete:
       operationId: community_destroy
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - community
+      - community
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "204":
           description: No response body
   /api/community/comments/:
     get:
       operationId: community_comments_list
-      description: |-
-        List or create a comment for a topic.
-        Use query params or separate endpoints for clarity (this is just for demonstration).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
-        - community
+      - community
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Comment"
+                $ref: "#/components/schemas/PaginatedCommentList"
           description: ""
     post:
       operationId: community_comments_create
-      description: |-
-        List or create a comment for a topic.
-        Use query params or separate endpoints for clarity (this is just for demonstration).
       tags:
-        - community
+      - community
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Comment"
+              $ref: "#/components/schemas/CommentRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Comment"
+              $ref: "#/components/schemas/CommentRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Comment"
+              $ref: "#/components/schemas/CommentRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -201,22 +208,23 @@ paths:
       operationId: community_comments_reply_create
       description: Create a reply to an existing comment.
       tags:
-        - community
+      - community
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Comment"
+              $ref: "#/components/schemas/CommentRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Comment"
+              $ref: "#/components/schemas/CommentRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Comment"
+              $ref: "#/components/schemas/CommentRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -229,22 +237,23 @@ paths:
       operationId: community_vote_create
       description: Allows a user to cast or update a vote (+1 or -1) on a topic.
       tags:
-        - community
+      - community
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Vote"
+              $ref: "#/components/schemas/VoteRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Vote"
+              $ref: "#/components/schemas/VoteRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Vote"
+              $ref: "#/components/schemas/VoteRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -256,10 +265,11 @@ paths:
     get:
       operationId: polls_list
       tags:
-        - polls
+      - polls
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -272,22 +282,23 @@ paths:
     post:
       operationId: polls_create
       tags:
-        - polls
+      - polls
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Poll"
+              $ref: "#/components/schemas/PollRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Poll"
+              $ref: "#/components/schemas/PollRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Poll"
+              $ref: "#/components/schemas/PollRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -299,16 +310,17 @@ paths:
     get:
       operationId: polls_retrieve
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - polls
+      - polls
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -319,28 +331,29 @@ paths:
     put:
       operationId: polls_update
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - polls
+      - polls
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Poll"
+              $ref: "#/components/schemas/PollRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Poll"
+              $ref: "#/components/schemas/PollRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Poll"
+              $ref: "#/components/schemas/PollRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -351,27 +364,28 @@ paths:
     patch:
       operationId: polls_partial_update
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - polls
+      - polls
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatchedPoll"
+              $ref: "#/components/schemas/PatchedPollRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/PatchedPoll"
+              $ref: "#/components/schemas/PatchedPollRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/PatchedPoll"
+              $ref: "#/components/schemas/PatchedPollRequest"
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -382,16 +396,17 @@ paths:
     delete:
       operationId: polls_destroy
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-        - polls
+      - polls
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "204":
           description: No response body
@@ -399,22 +414,23 @@ paths:
     post:
       operationId: polls_responses_create
       tags:
-        - polls
+      - polls
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateResponse"
+              $ref: "#/components/schemas/CreateResponseRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/CreateResponse"
+              $ref: "#/components/schemas/CreateResponseRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/CreateResponse"
+              $ref: "#/components/schemas/CreateResponseRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -427,10 +443,11 @@ paths:
       operationId: polls_responses_me_list
       description: List all responses for the current authenticated user
       tags:
-        - polls
+      - polls
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -444,15 +461,14 @@ paths:
     get:
       operationId: users_list
       description: |-
-        An example endpoint to list all users or create a user the normal way
-        (not recommended in this scenario if all users must come from invites).
-        Possibly keep it for admin or testing usage.
+        Admin-only endpoint to list all users or create a user normally.
+        (Not recommended for regular user creation if all users must come from invites.)
       tags:
-        - users
+      - users
       security:
-        - cookieAuth: []
-        - basicAuth: []
-        - {}
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -465,27 +481,26 @@ paths:
     post:
       operationId: users_create
       description: |-
-        An example endpoint to list all users or create a user the normal way
-        (not recommended in this scenario if all users must come from invites).
-        Possibly keep it for admin or testing usage.
+        Admin-only endpoint to list all users or create a user normally.
+        (Not recommended for regular user creation if all users must come from invites.)
       tags:
-        - users
+      - users
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/UserRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/UserRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/UserRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
-        - {}
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -498,12 +513,13 @@ paths:
       operationId: users_invitations_list
       description: |-
         Endpoint for listing or creating invitations.
-        The creation part should be restricted to authorized users only (e.g. staff).
+        (Creation is restricted to authorized users, e.g. staff.)
       tags:
-        - users
+      - users
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "200":
           content:
@@ -517,24 +533,25 @@ paths:
       operationId: users_invitations_create
       description: |-
         Endpoint for listing or creating invitations.
-        The creation part should be restricted to authorized users only (e.g. staff).
+        (Creation is restricted to authorized users, e.g. staff.)
       tags:
-        - users
+      - users
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Invitation"
+              $ref: "#/components/schemas/InvitationRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Invitation"
+              $ref: "#/components/schemas/InvitationRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Invitation"
+              $ref: "#/components/schemas/InvitationRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
       responses:
         "201":
           content:
@@ -542,28 +559,56 @@ paths:
               schema:
                 $ref: "#/components/schemas/Invitation"
           description: ""
+  /api/users/login/:
+    post:
+      operationId: users_login_create
+      description: Log in with username and password to obtain an authentication token
+      tags:
+      - authentication
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/AuthTokenRequest"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AuthTokenRequest"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthTokenRequest"
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
+      responses:
+        "200":
+          description: Authentication successful, token returned
+        "400":
+          description: Invalid credentials
   /api/users/register/:
     post:
       operationId: users_register_create
-      description: Public endpoint to register using an invite code & invite password.
+      description: Public endpoint to register using an invite code and invite password.
       tags:
-        - users
+      - users
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RegisterWithInvite"
+              $ref: "#/components/schemas/RegisterWithInviteRequest"
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/RegisterWithInvite"
+              $ref: "#/components/schemas/RegisterWithInviteRequest"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/RegisterWithInvite"
+              $ref: "#/components/schemas/RegisterWithInviteRequest"
         required: true
       security:
-        - cookieAuth: []
-        - basicAuth: []
-        - {}
+      - tokenAuth: []
+      - cookieAuth: []
+      - Token: []
+      - {}
       responses:
         "200":
           content:
@@ -573,6 +618,20 @@ paths:
           description: ""
 components:
   schemas:
+    AuthTokenRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
     Choice:
       type: object
       properties:
@@ -583,8 +642,17 @@ components:
           type: string
           maxLength: 255
       required:
-        - id
-        - text
+      - id
+      - text
+    ChoiceRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+      - text
     Comment:
       type: object
       properties:
@@ -593,9 +661,6 @@ components:
           readOnly: true
         topic:
           type: integer
-        user:
-          type: integer
-          readOnly: true
         content:
           type: string
         parent:
@@ -610,13 +675,42 @@ components:
           additionalProperties: {}
           readOnly: true
       required:
-        - content
-        - created_at
-        - id
-        - replies
-        - topic
-        - user
+      - content
+      - created_at
+      - id
+      - replies
+      - topic
+    CommentRequest:
+      type: object
+      properties:
+        topic:
+          type: integer
+        content:
+          type: string
+          minLength: 1
+        parent:
+          type: integer
+          nullable: true
+      required:
+      - content
+      - topic
     CreateResponse:
+      type: object
+      description: |-
+        Serializer to create a user response.
+        Expects:
+          - question
+          - (optional) free_text_answer
+          - (optional) choice_ids for the selected choice(s)
+      properties:
+        question:
+          type: integer
+        free_text_answer:
+          type: string
+          nullable: true
+      required:
+      - question
+    CreateResponseRequest:
       type: object
       description: |-
         Serializer to create a user response.
@@ -636,7 +730,7 @@ components:
             type: integer
           writeOnly: true
       required:
-        - question
+      - question
     Invitation:
       type: object
       properties:
@@ -656,8 +750,7 @@ components:
           nullable: true
         invited_by_username:
           type: string
-          description:
-            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           readOnly: true
         invited_user:
@@ -666,8 +759,7 @@ components:
           nullable: true
         invited_user_username:
           type: string
-          description:
-            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           readOnly: true
         created_at:
@@ -678,68 +770,80 @@ components:
           type: string
           format: date-time
       required:
-        - code
-        - created_at
-        - id
-        - invite_password
-        - invited_by
-        - invited_by_username
-        - invited_user
-        - invited_user_username
-    PatchedPoll:
+      - code
+      - created_at
+      - id
+      - invite_password
+      - invited_by
+      - invited_by_username
+      - invited_user
+      - invited_user_username
+    InvitationRequest:
       type: object
       properties:
-        id:
+        invite_password:
+          type: string
+          minLength: 1
+          maxLength: 128
+        expires_at:
+          type: string
+          format: date-time
+      required:
+      - invite_password
+    PaginatedCommentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
           type: integer
-          readOnly: true
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Comment"
+    PatchedPollRequest:
+      type: object
+      properties:
         title:
           type: string
+          minLength: 1
           maxLength: 255
         description:
           type: string
           nullable: true
-        created_by:
-          type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
         is_core_survey:
           type: boolean
-        questions:
-          type: array
-          items:
-            $ref: "#/components/schemas/Question"
-          readOnly: true
-    PatchedTopic:
+    PatchedTopicRequest:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
         title:
           type: string
+          minLength: 1
           maxLength: 255
         content:
           type: string
+          nullable: true
+        image:
+          type: string
+          format: binary
           nullable: true
         topic_type:
           $ref: "#/components/schemas/TopicTypeEnum"
         poll:
           type: integer
           nullable: true
-        poll_details:
-          allOf:
-            - $ref: "#/components/schemas/Poll"
-          readOnly: true
-        user:
-          type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
     Poll:
       type: object
       properties:
@@ -767,11 +871,25 @@ components:
             $ref: "#/components/schemas/Question"
           readOnly: true
       required:
-        - created_at
-        - created_by
-        - id
-        - questions
-        - title
+      - created_at
+      - created_by
+      - id
+      - questions
+      - title
+    PollRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        is_core_survey:
+          type: boolean
+      required:
+      - title
     Question:
       type: object
       properties:
@@ -791,15 +909,29 @@ components:
             $ref: "#/components/schemas/Choice"
           readOnly: true
       required:
-        - choices
-        - id
-        - question_type
-        - text
+      - choices
+      - id
+      - question_type
+      - text
+    QuestionRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 500
+        question_type:
+          $ref: "#/components/schemas/QuestionTypeEnum"
+        allow_free_form:
+          type: boolean
+      required:
+      - question_type
+      - text
     QuestionTypeEnum:
       enum:
-        - single
-        - multiple
-        - text
+      - single
+      - multiple
+      - text
       type: string
       description: |-
         * `single` - Single Choice
@@ -808,7 +940,7 @@ components:
     RegisterWithInvite:
       type: object
       description: |-
-        Serializer to validate invite code + invite password,
+        Serializer to validate invite code and invite password,
         and then create a new user if valid.
       properties:
         username:
@@ -816,19 +948,41 @@ components:
         email:
           type: string
           format: email
-        password:
-          type: string
-          writeOnly: true
         invite_code:
           type: string
-          format: uuid
         invite_password:
           type: string
       required:
-        - invite_code
-        - invite_password
-        - password
-        - username
+      - invite_code
+      - invite_password
+      - username
+    RegisterWithInviteRequest:
+      type: object
+      description: |-
+        Serializer to validate invite code and invite password,
+        and then create a new user if valid.
+      properties:
+        username:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        invite_code:
+          type: string
+          minLength: 1
+        invite_password:
+          type: string
+          minLength: 1
+      required:
+      - invite_code
+      - invite_password
+      - password
+      - username
     Response:
       type: object
       properties:
@@ -853,11 +1007,11 @@ components:
           format: date-time
           readOnly: true
       required:
-        - created_at
-        - id
-        - question
-        - selected_choices
-        - user
+      - created_at
+      - id
+      - question
+      - selected_choices
+      - user
     ResponseChoice:
       type: object
       properties:
@@ -867,8 +1021,8 @@ components:
         choice:
           type: integer
       required:
-        - choice
-        - id
+      - choice
+      - id
     Topic:
       type: object
       properties:
@@ -881,6 +1035,13 @@ components:
         content:
           type: string
           nullable: true
+        excerpt:
+          type: string
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
         topic_type:
           $ref: "#/components/schemas/TopicTypeEnum"
         poll:
@@ -888,7 +1049,7 @@ components:
           nullable: true
         poll_details:
           allOf:
-            - $ref: "#/components/schemas/Poll"
+          - $ref: "#/components/schemas/Poll"
           readOnly: true
         user:
           type: integer
@@ -897,16 +1058,46 @@ components:
           type: string
           format: date-time
           readOnly: true
+        comment_count:
+          type: string
+          readOnly: true
+        is_bookmarked:
+          type: string
+          readOnly: true
       required:
-        - created_at
-        - id
-        - poll_details
-        - title
-        - user
+      - comment_count
+      - created_at
+      - excerpt
+      - id
+      - is_bookmarked
+      - poll_details
+      - title
+      - user
+    TopicRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        content:
+          type: string
+          nullable: true
+        image:
+          type: string
+          format: binary
+          nullable: true
+        topic_type:
+          $ref: "#/components/schemas/TopicTypeEnum"
+        poll:
+          type: integer
+          nullable: true
+      required:
+      - title
     TopicTypeEnum:
       enum:
-        - discussion
-        - poll
+      - discussion
+      - poll
       type: string
       description: |-
         * `discussion` - Discussion
@@ -919,8 +1110,7 @@ components:
           readOnly: true
         username:
           type: string
-          description:
-            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
             only.
           pattern: ^[\w.@+-]+$
           maxLength: 150
@@ -932,8 +1122,27 @@ components:
         has_completed_core_survey:
           type: boolean
       required:
-        - id
-        - username
+      - id
+      - username
+    UserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        has_completed_core_survey:
+          type: boolean
+      required:
+      - username
     Vote:
       type: object
       properties:
@@ -947,14 +1156,28 @@ components:
           maximum: 2147483647
           minimum: -2147483648
       required:
-        - id
-        - topic
-        - vote_type
+      - id
+      - topic
+      - vote_type
+    VoteRequest:
+      type: object
+      properties:
+        topic:
+          type: integer
+        vote_type:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - topic
+      - vote_type
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
     cookieAuth:
       type: apiKey
       in: cookie
       name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
