@@ -2,7 +2,10 @@
   "common": {
     "getStarted": "Get Started",
     "language": "العربية",
-    "logo": "Logo"
+    "logo": "Logo",
+    "loading": "Loading...",
+    "ok": "OK",
+    "cancel": "Cancel"
   },
   "auth": {
     "loginTitle": "Log in/create account",
@@ -11,16 +14,19 @@
     "password": "Password",
     "signIn": "Sign In",
     "newToTakamol": "New to Takamol?",
-    "signUpWithPasskey": "Sign Up With Passkey",
-    "signupTitle": "Sign up with Passkey",
+    "signUpWithPasskey": "Sign Up With Invitation Code",
+    "signupTitle": "Sign up with Invitation Code",
     "welcomeMessage": "Welcome to Takamol!",
-    "passkeyDescription": "Enter the passkey provided to you by one of our moderators. Your passkey is private and should not be shared. Alternatively, you can also scan the QR Code.",
+    "passkeyDescription": "Enter the passkey provided to you by one of our moderators. Your passkey is private and should not be shared.",
     "enterPasskey": "Enter Passkey",
     "scanQRCode": "Scan QR Code",
     "passkey": "Passkey",
+    "invitePassword": "Invitation Password",
     "signUp": "Sign Up",
     "logout": "Logout",
-    "logoutHeader": "Would you like to logout?"
+    "logoutHeader": "Would you like to logout?",
+    "signupSuccess": "Registration Successful",
+    "signupSuccessMessage": "Your account has been created successfully. Please log in to continue."
   },
   "terms": {
     "title": "Terms & Privacy",
@@ -53,5 +59,7 @@
   "comments": "Comments",
   "writeComment": "Write a comment...",
   "comment": "Add Comment",
-  "discussion": "Discussion"
+  "discussion": "Discussion",
+  "email": "Email",
+  "password": "Password"
 }

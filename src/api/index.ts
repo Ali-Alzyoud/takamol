@@ -2,6 +2,17 @@ import axios, { AxiosError } from "axios";
 import { useAuthStore } from "../store/auth";
 import { paths } from "../utils/paths";
 
+interface ApiErrorDetail {
+  code: string;
+  detail: string;
+  attr: string;
+}
+
+interface ApiErrorResponse {
+  type: string;
+  errors: ApiErrorDetail[];
+}
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -13,14 +24,17 @@ export class ApiError extends Error {
   }
 
   static fromAxiosError(error: AxiosError): ApiError {
-    const status = error.response?.status || 500;
-    const message =
-      error.response?.data &&
-      typeof error.response.data === "object" &&
-      "message" in error.response.data
-        ? (error.response.data as { message: string }).message
-        : error.message;
-    const data = error.response?.data;
+    const status = error?.response?.status || 500;
+    const data = error?.response?.data as ApiErrorResponse;
+    // Handle API validation errors
+    if (Array.isArray(data?.errors) && data.errors.length > 0) {
+      // Get the first error detail
+      const message = data.errors[0].detail;
+      return new ApiError(status, message, data);
+    }
+
+    // Fallback to default error message
+    const message = error?.message;
     return new ApiError(status, message, data);
   }
 }

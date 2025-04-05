@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { api } from "../api";
-import { User } from "../types/auth";
+import { RegisterResponse, User } from "../types/auth";
 
 interface LoginCredentials {
   username: string;
@@ -29,7 +29,7 @@ interface AuthState {
   setError: (error: string | null) => void;
   logout: () => Promise<void>;
   login: (credentials: LoginCredentials) => Promise<void>;
-  register: (data: RegisterData) => Promise<void>;
+  register: (data: RegisterData) => Promise<RegisterResponse>;
   registerWithPasskey: () => Promise<void>;
   registerWithQR: (qrData: string) => Promise<void>;
   refreshSession: () => Promise<void>;
@@ -81,13 +81,13 @@ export const useAuthStore = create<AuthState>()(
         register: async (data) => {
           set({ isLoading: true, error: null });
           try {
-            const { data: response } = await api.post("/users/register/", data);
-            const { token, ...user } = response;
-            set({ user, token, isAuthenticated: true, isLoading: false });
-            api.defaults.headers.common.Authorization = `Token ${token}`;
+            const { data: response } = await api.post<RegisterResponse>("/users/register/", data);
+            return response;
           } catch (error) {
             set({ isLoading: false });
             throw error;
+          } finally {
+            set({ isLoading: false });
           }
         },
         registerWithPasskey: async () => {

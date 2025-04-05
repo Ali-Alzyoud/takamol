@@ -1,7 +1,6 @@
 import { useIonAlert } from "@ionic/react";
-import { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
-import { ApiError } from "../types/api";
+import { ApiError } from "../api";
 
 export const useAlert = () => {
   const [presentAlert] = useIonAlert();
@@ -12,14 +11,10 @@ export const useAlert = () => {
     message = t("genericError"),
     header = t("genericErrorTitle")
   ) => {
-    if (
-      error instanceof AxiosError &&
-      (error as AxiosError<ApiError>)?.response?.data?.errors?.[0]?.detail
-    ) {
-      message =
-        (error as AxiosError<ApiError>)?.response?.data?.errors?.[0]?.detail ||
-        message;
-    }
+
+   if (error instanceof ApiError)
+      message = error.message;
+   
     presentAlert({
       header,
       message,

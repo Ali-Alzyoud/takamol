@@ -14,6 +14,16 @@ export interface RegisterCredentials {
   invite_password: string;
 }
 
+export interface RegisterResponse {
+  message: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    has_completed_core_survey: boolean;
+  };
+}
+
 export interface Invitation {
   id: number;
   code: string;
