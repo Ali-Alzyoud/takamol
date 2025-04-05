@@ -49,5 +49,9 @@
   "loading": "Loading...",
   "cancel": "Cancel",
   "genericError": "An error occurred. Please try again.",
-  "genericErrorTitle": "Error"
+  "genericErrorTitle": "Error",
+  "comments": "Comments",
+  "writeComment": "Write a comment...",
+  "comment": "Add Comment",
+  "discussion": "Discussion"
 }

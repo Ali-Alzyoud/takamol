@@ -49,5 +49,9 @@
   "loading": "جاري التحميل...",
   "cancel": "إلغاء",
   "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
-  "genericErrorTitle": "خطأ"
+  "genericErrorTitle": "خطأ",
+  "comments": "تعليق",
+  "writeComment": "اكتب تعليقاً...",
+  "comment": "إضافة تعليق",
+  "discussion": "مناقشة"
 }

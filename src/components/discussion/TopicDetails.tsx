@@ -5,12 +5,13 @@ import { CommentItem } from '../comment/CommentItem';
 import { useState } from 'react';
 import styles from './TopicDetails.module.css';
 import getAvatar from '../../utils/getAvatar';
+import { CommentSkeleton } from '../comment/CommentSkeleton';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   topic: Topic;
   comments: Comment[];
-  isLiked?: boolean;
-  isSaved?: boolean;
+  isCommentsLoading?: boolean;
   onLike: (topicId: number) => void;
   onSave: (topicId: number) => void;
   onComment: (topicId: number, content: string) => void;
@@ -21,8 +22,7 @@ interface Props {
 export const TopicDetails: React.FC<Props> = ({
   topic,
   comments,
-  isLiked,
-  isSaved,
+  isCommentsLoading,
   onLike,
   onSave,
   onComment,
@@ -30,11 +30,10 @@ export const TopicDetails: React.FC<Props> = ({
   onLikeComment
 }) => {
   const [newComment, setNewComment] = useState('');
-
-  const [saved, setSaved] = useState(isSaved);
+  const { t } = useTranslation();
 
   return (
-    <IonCard>
+    <IonCard className="ion-no-margin">
       <IonCardHeader>
         <div className={styles.header}>
           <div className={styles.authorInfo}>
@@ -47,40 +46,37 @@ export const TopicDetails: React.FC<Props> = ({
             </div>
           </div>
           <IonIcon
-            icon={saved ? bookmark : bookmarkOutline}
-            color={saved ? 'primary' : 'medium'}
+            icon={topic.is_bookmarked ? bookmark : bookmarkOutline}
+            color={topic.is_bookmarked ? 'primary' : 'medium'}
             className={styles.bookmarkIcon}
-            onClick={() => {
-              // TODO: Implement save functionality
-              setSaved(p => !p);
-              onSave(topic.id);
-            }}
+            onClick={() => onSave(topic.id)}
           />
         </div>
         <IonCardTitle className={styles.title}>{topic.title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         <IonText className={styles.content}>{topic.content}</IonText>
-
         <div className={styles.actions}>
           <div className={styles.actionButton} onClick={() => onLike(topic.id)}>
             <IonIcon
-              icon={isLiked ? heart : heartOutline}
-              color={isLiked ? 'primary' : 'medium'}
+              icon={topic.is_liked ? heart : heartOutline}
+              color={topic.is_liked ? 'primary' : 'medium'}
               className={styles.actionIcon}
             />
-            <IonText color="medium">0</IonText>
+            <IonText color="medium">{topic.likes_count || 0}</IonText>
           </div>
         </div>
 
+        {/* Comment Form */}
+
         <div className={styles.commentsSection}>
           <IonText className={styles.commentsTitle}>
-            {comments.length} Comments
+            {topic.comments_count || 0} {t('comments')}
           </IonText>
 
           <div className={styles.commentForm}>
             <IonTextarea
-              label="Write a comment..."
+              label={t('writeComment')}
               labelPlacement='floating'
               fill='solid'
               rows={4}
@@ -88,7 +84,6 @@ export const TopicDetails: React.FC<Props> = ({
               value={newComment}
               onIonInput={(e) => setNewComment(e.detail.value ?? '')}
             />
-
 
             <div className={styles.formActions}>
               <IonButton
@@ -98,13 +93,21 @@ export const TopicDetails: React.FC<Props> = ({
                 }}
                 disabled={!newComment.trim()}
               >
-                Comment
+                {t('comment')}
               </IonButton>
             </div>
           </div>
 
+          {/* Comments List */}
+
           <div className={styles.commentList}>
-            {comments.map(comment => (
+            {isCommentsLoading ? (
+              <>
+                <CommentSkeleton />
+                <CommentSkeleton />
+                <CommentSkeleton />
+              </>
+            ) : comments.map(comment => (
               <CommentItem
                 key={comment.id}
                 comment={comment}

@@ -1,64 +1,82 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSpinner, IonText, IonButton } from '@ionic/react';
-import { useQuery } from '@tanstack/react-query';
-import { Topic } from '../types/community';
+import { IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonPage, IonSpinner, IonText, IonToolbar } from '@ionic/react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { getTopics } from '../api/community';
 import { DiscussionItem } from '../components/discussion/DiscussionItem';
-import styles from './Discussion.module.css';
 import MainHeader from '../components/layout/Header';
-// TODO: Replace with actual API call
-const getDiscussions = async (): Promise<Topic[]> => {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return [
-    {
-      id: 1,
-      title: "Building Freedom: The Evolution and Power of Freedom Charters",
-      content: 'In a world marked by division and dissent, the idea of a "freedom charter" resonates as both a beacon of hope and a blueprint for collective action.',
-      topic_type: "discussion",
-      user: 1,
-      created_at: new Date().toISOString(),
-      poll: undefined,
-      poll_details: {
-        id: 0,
-        title: "",
-        created_by: 0,
-        created_at: new Date().toISOString(),
-        is_core_survey: false,
-        questions: []
-      }
-    }
-  ];
-};
+import { useAlert } from '../hooks/useAlert';
+import { Topic } from '../types/community';
+import styles from './Discussion.module.css';
 
 export const DiscussionPage: React.FC = () => {
-  const { data: discussions, isLoading, error } = useQuery({
+  const { t } = useTranslation();
+  const { showAlert } = useAlert();
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error
+  } = useInfiniteQuery<Topic[], Error>({
     queryKey: ['discussions'],
-    queryFn: getDiscussions
+    queryFn: ({ pageParam }) => getTopics({ page: pageParam as number }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length === 10 ? allPages.length + 1 : undefined;
+    }
   });
+
+  // Handle error separately since onError is not supported in options
+  if (error) {
+    showAlert(error);
+  }
+
+  const handleInfiniteScroll = async (e: CustomEvent<void>) => {
+    await fetchNextPage();
+    (e.target as HTMLIonInfiniteScrollElement).complete();
+  };
 
   return (
     <IonPage>
-      <IonHeader >
-        <IonToolbar >
+      <IonHeader>
+        <IonToolbar>
           <MainHeader />
         </IonToolbar>
       </IonHeader>
-      <IonContent >
+      <IonContent>
         {isLoading ? (
           <div className={styles.loadingContainer}>
             <IonSpinner />
           </div>
-        ) : error ? (
+        ) : isError ? (
           <div className={styles.errorContainer}>
-            <IonText color="danger">Failed to load discussions</IonText>
+            <IonText color="danger">{t('genericError')}</IonText>
           </div>
-        ) : discussions ? (
-          <div className={styles.grid}>
-            {discussions.map(topic => (
-              <DiscussionItem key={topic.id} topic={topic} />
-            ))}
-          </div>
+        ) : data ? (
+          <>
+            <div className={styles.grid}>
+              {data?.pages?.map((page) =>
+                page.map((topic: Topic) => (
+                  <DiscussionItem key={topic.id} topic={topic} />
+                ))
+              )}
+            </div>
+            <IonInfiniteScroll
+              onIonInfinite={handleInfiniteScroll}
+              disabled={!hasNextPage || isFetchingNextPage}
+            >
+              <IonInfiniteScrollContent
+                loadingSpinner="bubbles"
+                loadingText={t('loading')}
+              />
+            </IonInfiniteScroll>
+          </>
         ) : (
           <div className={styles.errorContainer}>
-            <IonText color="danger">No discussions found</IonText>
+            <IonText color="danger">{t('genericError')}</IonText>
           </div>
         )}
       </IonContent>

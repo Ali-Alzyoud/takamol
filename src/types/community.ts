@@ -11,6 +11,10 @@ export interface Topic {
   poll_details: Poll;
   user: number;
   created_at: string;
+  is_liked?: boolean;
+  is_bookmarked?: boolean;
+  likes_count?: number;
+  comments_count?: number;
 }
 
 export interface Comment {
@@ -21,6 +25,8 @@ export interface Comment {
   parent?: number;
   created_at: string;
   replies: Record<string, any>;
+  is_liked?: boolean;
+  likes_count?: number;
 }
 
 export interface Vote {
