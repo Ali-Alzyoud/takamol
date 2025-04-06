@@ -79,15 +79,12 @@ export const useAuthStore = create<AuthState>()(
           }
         },
         register: async (data) => {
-          set({ isLoading: true, error: null });
+          set({  error: null });
           try {
             const { data: response } = await api.post<RegisterResponse>("/users/register/", data);
             return response;
           } catch (error) {
-            set({ isLoading: false });
             throw error;
-          } finally {
-            set({ isLoading: false });
           }
         },
         registerWithPasskey: async () => {
