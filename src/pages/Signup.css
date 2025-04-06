@@ -52,6 +52,10 @@ ion-segment-button {
   margin-bottom: 24px;
 }
 
+.input-container:last-of-type {
+  margin-bottom: 48px;
+}
+
 .signup-button {
   --background: #1c1c1c;
   --color: #ffffff;

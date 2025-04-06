@@ -1,28 +1,29 @@
 import {
-  IonContent,
-  IonPage,
-  IonButton,
-  IonInput,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
   IonBackButton,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
   IonIcon,
+  IonInput,
+  IonModal,
+  IonPage,
   IonProgressBar,
+  IonToolbar,
+  useIonAlert
 } from '@ionic/react';
-import { arrowBackOutline, arrowForward } from 'ionicons/icons';
-import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { OverlayEventDetail } from '@ionic/react/dist/types/components/react-component-lib/interfaces';
 import { useMutation } from '@tanstack/react-query';
+import { arrowBackOutline, arrowForward } from 'ionicons/icons';
+import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import './Signup.css';
-import { paths } from '../utils/paths';
 import { TermsAndPrivacy } from '../components/terms/TermsAndPrivacy';
-import { useAuthStore } from '../store/auth';
 import { useAlert } from '../hooks/useAlert';
-import { useIonAlert } from '@ionic/react';
+import { useAuthStore } from '../store/auth';
 import { RegisterResponse } from '../types/auth';
-
+import { paths } from '../utils/paths';
+import './Signup.css';
 const Signup: React.FC = () => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
@@ -36,7 +37,8 @@ const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [showingTerms, setShowingTerms] = useState(false);
+  const modal = useRef<HTMLIonModalElement>(null);
+  
 
   const signupMutation = useMutation<RegisterResponse>({
     mutationFn: async () => {
@@ -70,19 +72,21 @@ const Signup: React.FC = () => {
 
   function onClickSignup() {
     if(!acceptedTerms) {
-      setShowingTerms(true);
+      modal.current?.present();
       return;
     }
     signupMutation.mutate();
   }
 
   const handleAcceptTerms = () => {
-    setShowingTerms(false);
     setAcceptedTerms(true);
+    modal.current?.dismiss();
     signupMutation.mutate();
   };
 
-  if(showingTerms) return <TermsAndPrivacy onAccept={handleAcceptTerms} />
+
+
+
 
   return (
     <IonPage>
@@ -172,6 +176,11 @@ const Signup: React.FC = () => {
           <IonIcon icon={arrowForward} slot="end" />
         </IonButton>
       </div>
+
+      {/* Terms Modal */}
+      <IonModal ref={modal} >
+        <TermsAndPrivacy onAccept={handleAcceptTerms} />
+        </IonModal>
     </IonContent>
   </IonPage>
   );

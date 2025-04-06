@@ -53,7 +53,6 @@ const Login: React.FC = () => {
     <>
       {isLoading && <IonProgressBar type="indeterminate"></IonProgressBar>}
       <IonPage>
-
         <IonHeader className="ion-no-border ion-padding-top ion-padding-horizontal">
           <IonToolbar >
             <IonButtons slot="start">
